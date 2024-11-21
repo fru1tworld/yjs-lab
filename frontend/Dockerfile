@@ -4,7 +4,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # 패키지 파일 복사 및 의존성 설치
-COPY package.json pnpm-lock.yaml ./
+COPY package*.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
 # 소스 복사 및 빌드
@@ -24,6 +24,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # 포트 노출
 EXPOSE 80
+EXPOSE 5173
 
 # Nginx 실행
 CMD ["nginx", "-g", "daemon off;"]
